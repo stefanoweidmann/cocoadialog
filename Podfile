@@ -1,4 +1,5 @@
-platform :osx, '10.8'
+minium_deployment_target = '10.13' # Required for XCode 16
+platform :osx, minium_deployment_target
 inhibit_all_warnings!
 
 target 'cocoadialog' do
@@ -43,6 +44,15 @@ post_install do | installer |
     if (File.file?(file))
         puts "      - Copying \"" + filename + "\" -> \"" + newFile + "\"..."
         FileUtils.cp_r(file, newFile, :remove_destination => true)
+    end
+  end
+
+  # set minimum deployment target because OSX 10.8 is not supported by newer XCode any longer
+  # https://stackoverflow.com/questions/77139617/clang-error-sdk-does-not-contain-libarclite-at-the-path
+  # https://developer.apple.com/support/xcode/
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings["MACOSX_DEPLOYMENT_TARGET"] = minium_deployment_target
     end
   end
 end
