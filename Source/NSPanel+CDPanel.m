@@ -27,7 +27,7 @@
     self.movableByWindowBackground = vibrancy;
 
     if (vibrancy) {
-        self.styleMask = self.styleMask | NSFullSizeContentViewWindowMask;
+        self.styleMask = self.styleMask | NSWindowStyleMaskFullSizeContentView;
         NSVisualEffectView *view = [[NSVisualEffectView alloc] initWithFrame:[self.contentView bounds]];
         [view setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
         [view setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
@@ -37,7 +37,7 @@
         self.effectView = view;
     }
     else {
-        self.styleMask = self.styleMask ^ NSFullSizeContentViewWindowMask;
+        self.styleMask = self.styleMask ^ NSWindowStyleMaskFullSizeContentView;
         self.effectView = nil;
     }
 
