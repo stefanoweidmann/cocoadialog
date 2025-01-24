@@ -55,7 +55,7 @@
     }
 
     NSInteger result = [openPanel runModal];
-    if (result == NSFileHandlingPanelOKButton) {
+    if (result == NSModalResponseOK) {
         NSMutableArray *files = @[].mutableCopy;
         NSEnumerator *en = [openPanel.URLs objectEnumerator];
         NSURL *url;

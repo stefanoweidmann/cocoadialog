@@ -16,7 +16,7 @@
 - (instancetype) init {
     self = [super init];
     if (self) {
-        _newFontWeights = (&NSFontWeightUltraLight != NULL);
+        _newFontWeights = true;
         _hasLinks = NO;
         _enabled = YES;
         _headerFontSizeMultiplier = 1.5;
