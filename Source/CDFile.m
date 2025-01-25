@@ -88,7 +88,11 @@
     }
 }
 
-- (BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename {
+- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
+    if (!url.fileURL) {
+        return NO;
+    }
+    NSString* filename = url.absoluteString;
     BOOL packageAsDir = self.options[@"packages‑as‑directories"].boolValue;
     BOOL isPackage = [[NSWorkspace sharedWorkspace] isFilePackageAtPath:filename];
     BOOL isDir;

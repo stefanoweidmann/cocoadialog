@@ -24,7 +24,7 @@
     [self createTimeout];
 
     NSInteger result = [self.savePanel runModal];
-    if (result == NSFileHandlingPanelOKButton) {
+    if (result == NSModalResponseOK) {
         self.returnValues[@"button"] = self.options[@"return-labels"] ? @"OKAY".localized : @0;
         self.returnValues[@"value"] = self.savePanel.URL.path;
     }
