@@ -29,9 +29,6 @@
 + (CDOptions *) availableOptions {
     return [CDOptions options].addOptionsToScope(@"global",
   @[
-    // Add hidden developement (Xcode) option.
-    CDOption.create(CDBoolean,  @"dev").hide(YES),
-
     // Global options.
     CDOption.create(CDBoolean,  @"color").setDefaultValue(^() {
         return [NSNumber numberWithBool:[CDTerminal sharedInstance].supportsColor];
@@ -75,13 +72,6 @@
             // case they access the options themselves to add additional properties like
             // "required" or "defaultValue".
             [control debugOptions:opt];
-
-            // If not in Xcode debug mode, force the --dev option to be disabled.
-            if ([opt.name isEqualToStringCaseInsensitive:@"dev"]) {
-#ifndef DEBUG
-                opt.provided(YES).rawValue(@"NO");
-#endif
-            }
         };
     }
     return self;
