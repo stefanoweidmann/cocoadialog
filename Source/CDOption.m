@@ -376,7 +376,23 @@
 }
 
 - (BOOL) boolValue {
-    if (self.valueType == CDBoolean || self.valueType == CDNumber || self.valueType == CDStringOrNumber) {
+    if (self.valueType != CDBoolean && self.valueType != CDNumber && self.valueType != CDStringOrNumber) {
+        return NO;
+    }
+    // try using known string values
+    if (self.valueType != CDNumber) {
+        NSString* stringValue = self.stringValue;
+        if (stringValue != NULL) {
+            if ([stringValue caseInsensitiveCompare:@"yes"] == 0 || [stringValue caseInsensitiveCompare:@"true"] == 0) {
+                return YES;
+            }
+            else if ([stringValue caseInsensitiveCompare:@"no"] == 0 || [stringValue caseInsensitiveCompare:@"false"] == 0) {
+                return NO;
+            }
+        }
+    }
+    // use numeric value
+    {
         NSNumber *number = self.numberValue;
         return number != nil ? number.boolValue : NO;
     }
