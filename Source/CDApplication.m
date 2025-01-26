@@ -177,10 +177,10 @@
     for (NSString *name in self.control.options) {
         CDOption *option = self.control.options[name];
         if (option.wasProvided) {
-            if (option.values.filterEmpty.count < option.minimumValues.unsignedIntegerValue) {
+            if (option.values.count < option.minimumValues.unsignedIntegerValue) {
                 self.terminal.error(@"The %@ control requires a minimum of %@ values for the %@ option.", self.control.name.doubleQuote, option.minimumValues, name.optionFormat, nil).exit(CDTerminalExitCodeOptionInvalid);
             }
-            if (option.maximumValues.unsignedIntegerValue && option.values.filterEmpty.count > option.maximumValues.unsignedIntegerValue) {
+            if (option.maximumValues.unsignedIntegerValue && option.values.count > option.maximumValues.unsignedIntegerValue) {
                 self.terminal.error(@"The %@ control is limited to a maximum of %@ values for the %@ option.", self.control.name.doubleQuote, option.maximumValues, name.optionFormat, nil).exit(CDTerminalExitCodeOptionInvalid);
             }
         }
