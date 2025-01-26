@@ -27,7 +27,8 @@
 }
 
 - (NSString *) name {
-    return [NSBundle mainBundle].infoDictionary[@"CFBundleName"];
+    NSBundle *b =[NSBundle mainBundle];
+    return b.infoDictionary[@"CFBundleName"];
 }
 
 - (NSString *) templateDataKey {

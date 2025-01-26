@@ -116,14 +116,14 @@
 }
 
 - (void) runControl {
+#ifdef DEV
     // Add borders around all views when in development mode.
-    if (self.options[@"dev"].boolValue) {
-        for (NSView *view in self.panel.contentView.subviews) {
-            view.wantsLayer = YES;
-            view.layer.borderWidth = 1;
-            view.layer.borderColor = [[NSColor blueColor] CGColor];
-        }
+    for (NSView *view in self.panel.contentView.subviews) {
+        view.wantsLayer = YES;
+        view.layer.borderWidth = 1;
+        view.layer.borderColor = [[NSColor blueColor] CGColor];
     }
+#endif
 
     // Remove the control view if there are no subviews.
     if (!self.controlView.subviews.count) {
@@ -156,14 +156,15 @@
     // Initialize the panel.
     [self createPanel];
 
-    if (self.options[@"dev"].boolValue) {
-        for (NSLayoutConstraint *constraint in self.panel.contentView.constraints) {
-            if ([NSStringFromClass([constraint class]) isEqualTo:@"NSAutoresizingMaskLayoutConstraint"]) {
-                continue;
-            }
-            self.terminal.dev(@"%@", [self debugConstraint:constraint], nil);
+#ifdef DEV
+    for (NSLayoutConstraint *constraint in self.panel.contentView.constraints) {
+        if ([NSStringFromClass([constraint class]) isEqualTo:@"NSAutoresizingMaskLayoutConstraint"]) {
+            continue;
         }
+        self.terminal.dev(@"%@", [self debugConstraint:constraint], nil);
     }
+#endif
+
 
     // Start timeout, if necessary.
     if (self.timeout) {

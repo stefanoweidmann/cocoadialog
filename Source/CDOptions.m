@@ -334,8 +334,11 @@
         // have been processed so logging respects any passed values).
         CDTerminalLogLevel logLevel = CDTerminalLogLevelNone;
         if (!self->_options[@"quiet"].boolValue) {
+            logLevel |= CDTerminalLogLevelError | CDTerminalLogLevelWarning;
             if (self->_options[@"debug"].boolValue)   logLevel |= CDTerminalLogLevelDebug;
-            if (self->_options[@"dev"].boolValue)     logLevel |= CDTerminalLogLevelDev;
+#ifdef DEV
+            logLevel |= CDTerminalLogLevelDev;
+#endif
             if (self->_options[@"error"].boolValue)   logLevel |= CDTerminalLogLevelError;
             if (self->_options[@"verbose"].boolValue) logLevel |= CDTerminalLogLevelVerbose;
             if (self->_options[@"warning"].boolValue) logLevel |= CDTerminalLogLevelWarning;
